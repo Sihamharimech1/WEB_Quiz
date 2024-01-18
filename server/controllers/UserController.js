@@ -1,4 +1,5 @@
-const User = require('../models/User.js');
+const User = require('../models/Prof.js');
+const Prof = require('../models/User.js');
 const Quiz = require('../models/Quiz.js');
 const bcrypt = require('bcrypt');
 const auth = require('../middlewares/auth.js');
@@ -18,6 +19,32 @@ const Add_User=async (req, res) => {
          await newUser.save();
    
          console.log('User registered successfully');
+       
+       } catch (error) {
+         console.error('Error during registration:', error.message);
+         res.send('error');
+       }
+    } else {
+        res.send('sorry');
+    }
+   }
+   //////////////////////////////ADD PROF
+   const Add_Prof=async (req, res) => {
+    if (req.body) {
+        
+        const newData = req.body;
+       try {
+         // Hash the password
+         const hashedPassword = await bcrypt.hash(newData.password, 10);
+         newData.password = hashedPassword;
+   
+         // Create a new Prof instance with the hashed password
+         const newProf = new Prof(newData);
+   
+         // Save the Prof to the database
+         await newProf.save();
+   
+         console.log('Prof registered successfully');
        
        } catch (error) {
          console.error('Error during registration:', error.message);
@@ -87,5 +114,6 @@ const getQuizzesByFilliere = async (req, res) => {
     Login_User,
     LogOut,
     AddQuiz,
-    getQuizzesByFilliere
+    getQuizzesByFilliere,
+    Add_Prof
   }

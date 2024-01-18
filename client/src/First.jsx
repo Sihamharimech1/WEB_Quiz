@@ -1,15 +1,17 @@
 const Landing = () => {
     return ( 
+        <>
+          <h1 id="title">Welcome to our website!</h1>
         <div className="landing">
-            <h1>Welcome to our website!</h1>
-            <div>
+            <div className="student">
                 <img src="201602.png"></img>
-                <img src="306473.png"></img>
-            </div>
-            <div>
                 
             </div>
+            <div className="teacher">
+                <img src="306473.png"></img>
+            </div>
         </div>
+        </>
      );
 }
  
