@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins&family=Roboto:wght@100&display=swap');
 #root {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 html, body{
   margin:0 !important;
@@ -9,7 +9,7 @@ html, body{
 }
 /*Register page */
 .all{
-  background-color: rgb(217, 212, 245);
+  background-color: rgb(212, 211, 211);
   height: 650px;
   margin:0 !important;
   padding:0 !important;
@@ -20,7 +20,7 @@ html, body{
 .box{
   background-color: rgb(255, 255, 255);
   width: 700px;
-  height: 500px;
+  height: 600px;
   border-radius: 1%;
   display: flex;
   align-items: center;
@@ -50,17 +50,17 @@ html, body{
  box-shadow: none;
  border: 1px solid black;
  margin-bottom: 10px;
- font-family: 'Roboto', sans-serif;
+ font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 button{
   width: 210px;
   height: 40px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   cursor: pointer;
   color: white;
-  background-color: rgb(77, 77, 164);
-  border-radius: 2%;
+  background-color: rgb(74, 152, 178);
+  border-radius: 12px;
   box-shadow: none;
   border: none;
  margin-top: 40px;
@@ -72,7 +72,7 @@ button{
 /*NavBar-----------------*/
 .Nav{
   height: 90px;
-  background-color: rgb(232, 254, 254);
+  background-color: rgb(189, 233, 255);
   display: flex;
 }
 .Nav img{
@@ -83,11 +83,11 @@ button{
 .Nav button{
   width: 100px;
   height: 50px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-weight:700;
   cursor: pointer;
   color: white;
-  background-color: rgb(1, 33, 52);
+  background-color: rgb(27, 125, 181);
   border-radius: 10px;
   box-shadow: none;
   border: none;
@@ -107,43 +107,13 @@ button{
   text-align: center;
   line-height: 80px; /* Adjust the line-height to vertically center the text */
 }
-.container:nth-child(1){
-  background-color: rgb(74, 89, 87);
-}
-.container:nth-child(2){
-  background-color: rgb(103, 235, 110);
-}
-.container:nth-child(3){
-  background-color: rgb(132, 103, 235);
-}
-.container:nth-child(4){
-  background-color: rgb(255, 237, 245);
-}
-.container:nth-child(5){
-  background-color: rgb(189, 193, 200);
-}
-.container:nth-child(6){
-  background-color: rgb(168, 195, 236);
-}
-.container:nth-child(7){
-  background-color: rgb(56, 101, 61);
+.container{
+  background-color: rgb(239, 243, 245);
 }
 
 
-.cont:nth-child(1){
-  background-color: rgb(104, 161, 155);
-}
-.cont:nth-child(2){
-  background-color: rgb(103, 116, 235);
-}
-.cont:nth-child(3){
-  background-color: rgb(132, 103, 103);
-}
-.cont:nth-child(4){
-  background-color: rgb(249, 227, 236);
-}
-.cont:nth-child(5){
-  background-color: rgb(138, 185, 255);
+.cont{
+  background-color: rgb(173, 206, 203);
 }
 .cont:hover{
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -161,16 +131,105 @@ button{
   width: 350px;
   height: auto;
   margin-left: 120px;
-  margin-top: 70px;
+  margin-top: 30px;
+}
+.student img:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+  
 }
 .teacher img{
   width: 350px;
-  float: right;
   height: auto;
-  margin-left: 300px;
-  margin-top: 70px;
+  margin-left: 600px;
+  margin-top: -500px;
 }
 #title{
   font-family:'Raleway', sans-serif;
   margin-top: 30px;
+}
+/*test */
+
+
+
+.header {
+  background-color: #ffffff;
+  padding: 10px;
+  color: white;
+  height: 90px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+header img{
+  max-width: 120px;
+  margin-bottom:30px
+}
+header h1{
+  font-size: 25px;
+  margin-top: -65px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.main-content {
+  padding: 20px;
+  text-align: center;
+  
+}
+
+.cta {
+  background-color: #ffffff;
+  padding: 20px;
+
+}
+
+.subscribe-button {
+  background-color: #000000;
+  color: white;
+
+  padding-top: 20px;
+  padding-bottom: 40px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 12px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin-left: 500px;
+  margin-top:10px;
+}
+.tit{
+  background-color: #7e6f9a;
+  color: white;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 150px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 12px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin-left: 220px;
+}
+.tit2{
+  background-color: #638d5b;
+  color: white;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 150px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 12px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  float: right;
+  margin-top: -460px;
+  margin-right: 250px;
+}
+
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }

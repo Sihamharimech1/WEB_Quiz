@@ -4,16 +4,22 @@ import Register from "./Register";
 import Login from "./Login";
 import Home from "./Home";
 import QuizForm from "./QuizForm";
+import RegisterProf from "./RegisterProf";
+import Test from "./Test";
 import "./App.css";
 import NavBar from "./nav";
 import QuizFil from "./Land";
-import Landing from "./First";
+import BigLogin from "./BigLogin";
+import LoginProf from "./loginProf";
 function App() {
   return (
     <Router>
       <Routes>
-      <Route path="/" element={<Landing />} />
+      <Route path="/" element={<Test />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/RegisterProf" element={<RegisterProf />} />
+        <Route path="/BigLogin" element={<BigLogin />} />
+        <Route path="/loginProf" element={<LoginProf />} />
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
           <Route path="tm"  element={<QuizForm filliere="tm"/>}/>

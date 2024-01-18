@@ -1,8 +1,12 @@
+import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 const RegisterProf = () => {
   
   const [nom, setNom] = useState('');
   const [email, setEmail] = useState('');
-  const [profId, setProfId] = useState('');
+  const [professionalId, setProfessionalId] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -19,7 +23,7 @@ const RegisterProf = () => {
     setLoading(true);
     setError('');
 
-    const formData = { nom, profId, email, password };
+    const formData = { nom, professionalId, email, password };
 
     try {
       const response = await axios.post('http://localhost:3000/registerProf', formData);
@@ -27,6 +31,7 @@ const RegisterProf = () => {
 
       // Reset form fields
       setNom('');
+      setProfId('');
       setEmail('');
       setPassword('');
       setConfirmPassword('');
@@ -49,8 +54,8 @@ const RegisterProf = () => {
             <input type='text' id='nom' name='nom' value={nom} onChange={(e) => setNom(e.target.value)} required />
           </div>
           <div className='unit'>
-            <label htmlFor='profId'>Id Professionel</label>
-            <input type='text' id='profId' name='profId' value={profId} onChange={(e) => setProfId(e.target.value)} required />
+            <label htmlFor='professionalId'>Id Professionel</label>
+            <input type='text' id='professionalId' name='professionalId' value={professionalId} onChange={(e) => setProfessionalId(e.target.value)} required />
           </div>
           <div className='unit'>
             <label htmlFor='email'>Email</label>

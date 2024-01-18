@@ -1,5 +1,5 @@
-const User = require('../models/Prof.js');
-const Prof = require('../models/User.js');
+const User = require('../models/User.js');
+const Prof = require('../models/Prof.js');
 const Quiz = require('../models/Quiz.js');
 const bcrypt = require('bcrypt');
 const auth = require('../middlewares/auth.js');
@@ -68,6 +68,21 @@ const Login_User= async (req, res) => {
     res.status(401).json({ success: false, message: authenticationResult.message });
   }
 };
+//////////////////////////LoginProf
+const Login_Prof= async (req, res) => {
+  const { professionalId, password } = req.body;
+
+  const authenticationResult = await auth.VerifyProf(professionalId, password);
+
+  if (authenticationResult.success) {
+    req.session.user = authenticationResult.user;
+    console.log(req.session.user);
+    res.json({ success: true });
+  } else {
+    res.status(401).json({ success: false, message: authenticationResult.message });
+  }
+};
+//////////////////////////////////////
 const LogOut = (req, res) => {
   req.session.destroy(err => {
     if (err) {
@@ -115,5 +130,6 @@ const getQuizzesByFilliere = async (req, res) => {
     LogOut,
     AddQuiz,
     getQuizzesByFilliere,
-    Add_Prof
+    Add_Prof,
+    Login_Prof
   }

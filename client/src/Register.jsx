@@ -86,7 +86,7 @@ const Register = () => {
         </form>
         <div className='un'>
           <p>You already have an Account. Log in!</p>
-          <Link to='/login'>
+          <Link to='/BigLogin'>
             <Button>Log in</Button>
           </Link>
         </div>

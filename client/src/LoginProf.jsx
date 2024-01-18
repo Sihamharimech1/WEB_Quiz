@@ -3,8 +3,9 @@ import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const Login = () => {
-  const [email, setEmail] = useState('');
+const LoginProf = () => {
+        
+  const [professionalId, setProfessionalId] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -16,15 +17,15 @@ const Login = () => {
     setLoading(true);
     setError('');
 
-    const loginData = { email, password };
+    const loginData = { professionalId, password };
 
     try {
-      const response = await axios.post('http://localhost:3000/login', loginData);
+      const response = await axios.post('http://localhost:3000/loginProf', loginData);
   
       // Check for a successful response status (e.g., 200 OK)
       if (response.data.success) {
         console.log(response.data);
-        setEmail('');
+        setProfessionalId('');
         setPassword('');
         navigate('/home');
       } else {
@@ -57,13 +58,13 @@ const stle ={
       <div className='box' style={stle}>
         <form onSubmit={handleSubmit}>
           <div className='unit'>
-            <label htmlFor='email'>Email</label>
+            <label htmlFor='professionalId'>ProfessionalId</label>
             <input
-              type='email'
-              id='email'
-              name='email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type='text'
+              id='professionalId'
+              name='professionalId'
+              value={professionalId}
+              onChange={(e) => setProfessionalId(e.target.value)}
               required
             />
           </div>
@@ -88,6 +89,6 @@ const stle ={
       </div>
     </div>
   );
-};
-
-export default Login;
+}
+ 
+export default LoginProf;
