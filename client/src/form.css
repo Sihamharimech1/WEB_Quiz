@@ -1,0 +1,139 @@
+/* form.css */
+
+.contain {
+  margin: 20px;
+}
+
+.form-header {
+  text-align:center;
+  color: rgb(6, 92, 42);
+}
+.allquiz {
+  text-align:left;
+  background-color: rgb(18, 110, 190);
+  width: fit-content;
+  padding: 15px;
+  text-decoration: none;
+  color: white;
+  margin-top: -50px;
+  font-size: large;
+  border-radius: 12px;
+}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: auto;
+}
+
+.form-label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.form-input,
+.form-select {
+  margin-top: 5px;
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-button {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #007BFF;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+}
+
+.form-button:hover {
+  background-color: #0056b3;
+}
+
+/* Styling for question and option containers */
+
+.question-container,
+.option-container {
+  margin-top: 15px;
+}
+
+/* Styling for the "Add Question" button */
+
+.add-question-button {
+  background-color: #28a745;
+}
+
+.add-question-button:hover {
+  background-color: #218838;
+}
+
+/*quiz fill
+/* QuizFil.css */
+/* QuizFil.css */
+
+.containe {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.quiz {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.question {
+  margin-bottom: 15px;
+}
+
+.options {
+  list-style-type: none;
+  padding: 0;
+}
+
+.option {
+  margin-bottom: 8px;
+  background-color: #f4f4f4;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.correctOption {
+  font-weight: bold;
+  color: #28a745;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+/* Add some spacing between elements */
+.space {
+  margin-bottom: 20px;
+}
+
+.om{
+  border: 12px;
+  border-color:1px solid darkred;
+  text-align: center;
+ 
+  margin-top: 20px;
+  font-size: 18px;
+  background-color: rgb(220, 176, 176);
+ height: 20px;
+  padding: 15px;
+ 
+  border-radius: 12px;
+}
+.om p{
+  margin-top: -2px;
+  color: rgb(70, 33, 33);
+}
