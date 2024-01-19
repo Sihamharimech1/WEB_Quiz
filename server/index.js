@@ -18,7 +18,7 @@ app.use(
 //Connecting to atlas
 
  const db =
- 'mongodb+srv://YoshiMario:oov3P623r1z8vYNj@yoshimario.mbzt3og.mongodb.net/?retryWrites=true&w=majority';
+ '//url mongo';
 mongoose.connect(db)
  .then(() => {
     console.log('Connected to MongoDB');
