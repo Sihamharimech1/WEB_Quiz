@@ -1,6 +1,7 @@
 const User = require('../models/User.js');
 const Prof = require('../models/Prof.js');
 const Quiz = require('../models/Quiz.js');
+const Result = require('../models/Result.js');
 const bcrypt = require('bcrypt');
 const auth = require('../middlewares/auth.js');
 const mongoose = require('mongoose');
@@ -179,6 +180,30 @@ const GetQuizByFiliere= async (req, res) => {
   }
 }
 */
+const SubmitQuiz = async (req, res) => {
+  try {
+    const { QId, QUser, Qtitle, Qscore } = req.body;
+
+    // Validate the data
+    if (!QId || !QUser || !Qtitle || Qscore === undefined) {
+      return res.status(400).send('Missing required quiz information');
+    }
+
+    // Create and save the quiz submission
+    const submission = new Result({
+      quizId: QId,
+      userId: QUser,
+      title: Qtitle,
+      score: Qscore
+    });
+
+    await submission.save();
+
+    res.status(201).json({ message: 'Quiz submitted successfully', submission });
+  } catch (error) {
+    res.status(500).json({ message: 'Error submitting quiz', error: error.message });
+  }
+};
 
 
    module.exports = {
@@ -189,7 +214,8 @@ const GetQuizByFiliere= async (req, res) => {
     Add_Prof,
     Login_Prof,
     GetQuizByFiliere,
-    getQuizzesByFilliere
+    getQuizzesByFilliere,
+    SubmitQuiz
   }
 
 

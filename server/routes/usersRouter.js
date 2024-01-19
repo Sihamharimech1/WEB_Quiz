@@ -11,4 +11,5 @@ router.post('/loginProf', UserController.Login_Prof);
 router.get('/quizzes', UserController.getQuizzesByFilliere);
 router.get('/quizzes/:filliere', UserController.GetQuizByFiliere);
 // router.post('/submit-answers', UserController.submitAnswers);
+router.post('/submitQuiz', UserController.SubmitQuiz);
 module.exports = router;
