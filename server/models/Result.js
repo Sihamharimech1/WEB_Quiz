@@ -7,6 +7,7 @@ const ResultSchema = new Schema({
     title: { type: String, required: true },
     score: { type: Number, required: true },
     filliere: { type: String, required: true },
+    nomuser: { type: String, required: true },
     submittedAt: { type: Date, default: Date.now }
 }, { timestamps: true });
 

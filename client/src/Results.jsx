@@ -37,7 +37,7 @@ const Results = () => {
 
     return (
         <div>
-            <h1>Quiz Results</h1>
+            <h1>Quiz Results </h1>
             <table>
                 <thead>
                     <tr>

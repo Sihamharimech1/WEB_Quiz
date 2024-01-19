@@ -78,7 +78,8 @@ const HomeStudent = () => {
       QUser: QUser,
       Qtitle: quizData.find(quiz => quiz._id === quizId)?.title,
       Qscore: quizScore, // Use the updated quizScore
-      filliere: user?.filliere
+      filliere: user?.filliere,
+      nomuser: user?.nom
     };
   
     // Send QuizInfo to the backend

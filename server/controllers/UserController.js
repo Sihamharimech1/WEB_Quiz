@@ -182,7 +182,7 @@ const GetQuizByFiliere= async (req, res) => {
 */
 const SubmitQuiz = async (req, res) => {
   try {
-    const { QId, QUser, Qtitle, Qscore, filliere } = req.body;
+    const { QId, QUser, Qtitle, Qscore, filliere,nomuser } = req.body;
 
     // Validate the data
     if (!QId || !QUser || !Qtitle || Qscore === undefined || !filliere) {
@@ -195,7 +195,8 @@ const SubmitQuiz = async (req, res) => {
       userId: QUser,
       title: Qtitle,
       score: Qscore,
-      filliere: filliere
+      filliere: filliere,
+      nomuser : nomuser
     });
 
     await submission.save();
@@ -208,28 +209,29 @@ const SubmitQuiz = async (req, res) => {
 
 const getQuizResults = async (req, res) => {
   try {
-    const { filliere } = req.params;
+    const { filliere } = req.query; // Use req.query for query parameters
 
-       // Fetch results filtered by the specified filliere
-       const results = await Result.find({ filliere })
-                                   .populate('quizId', 'title')
-                                   .populate('userId', 'name');
+    // Fetch results filtered by the specified filliere
+    const results = await Result.find({ filliere })
+                                .populate('quizId', 'title')
+                                .populate('userId', 'name');
 
-       // Transform the data as needed
-       const transformedResults = results.map(result => ({
-           filliere: result.filliere,
-           quizTitle: result.quizId.title, // Assuming 'title' field in the 'Quiz' model
-           user: result.userId.name, // Assuming 'name' field in the 'User' model
-           score: result.score,
-           submittedAt: result.submittedAt
-       }));
+    // Transform the data as needed
+    const transformedResults = results.map(result => ({
+        filliere: result.filliere,
+        quizTitle: result.quizId.title, // Assuming 'title' field in the 'Quiz' model
+        user: result.nomuser, // Use 'nomuser' from the Result schema
+        score: result.score,
+        submittedAt: result.submittedAt
+    }));
 
-      res.json(transformedResults);
+    res.json(transformedResults);
   } catch (error) {
-      console.error('Error fetching quiz results:', error);
-      res.status(500).json({ message: 'Error fetching quiz results' });
+    console.error('Error fetching quiz results:', error);
+    res.status(500).json({ message: 'Error fetching quiz results' });
   }
 };
+
 
    module.exports = {
     Add_User, 

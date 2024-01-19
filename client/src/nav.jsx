@@ -11,7 +11,7 @@ const NavBar = () => {
       await axios.get('/logout');
 
       // Redirect to the sign-in page after successful logout
-      navigate('/login');
+      navigate('/BigLogin');
     } catch (error) {
       console.error('Logout failed:', error);
     }
