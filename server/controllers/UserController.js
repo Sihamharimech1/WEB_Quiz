@@ -115,6 +115,20 @@ const AddQuiz = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+const getQuizzesByFilliere = async (req, res) => {
+  const { filliere } = req.query;
+
+  try {
+    // Fetch quizzes from the database based on the 'filliere' parameter
+    const quizzes = await Quiz.find({ filiere: filliere });
+
+    res.json(quizzes);
+  } catch (error) {
+    console.error('Error fetching quizzes:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+//////////////////get quiz by filliere 
 
 //////////////////get quiz by filliere 
 const GetQuizByFiliere= async (req, res) => {
@@ -167,5 +181,8 @@ const submitAnswers = async (req, res) => {
     Add_Prof,
     Login_Prof,
     GetQuizByFiliere,
-    submitAnswers
+    submitAnswers,
+    getQuizzesByFilliere
   }
+
+
