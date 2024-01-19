@@ -3,6 +3,8 @@ const Prof = require('../models/Prof.js');
 const Quiz = require('../models/Quiz.js');
 const bcrypt = require('bcrypt');
 const auth = require('../middlewares/auth.js');
+const mongoose = require('mongoose');
+const { constants } = require('crypto');
 const Add_User=async (req, res) => {
     if (req.body) {
         
@@ -63,7 +65,7 @@ const Login_User= async (req, res) => {
   if (authenticationResult.success) {
     req.session.user = authenticationResult.user;
     console.log(req.session.user);
-    res.json({ success: true });
+    res.json({ success: true, user: authenticationResult.user });
   } else {
     res.status(401).json({ success: false, message: authenticationResult.message });
   }
@@ -76,6 +78,8 @@ const Login_Prof= async (req, res) => {
 
   if (authenticationResult.success) {
     req.session.user = authenticationResult.user;
+   
+
     console.log(req.session.user);
     res.json({ success: true });
   } else {
@@ -111,25 +115,57 @@ const AddQuiz = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
-const getQuizzesByFilliere = async (req, res) => {
-  const { filliere } = req.query;
+
+//////////////////get quiz by filliere 
+const GetQuizByFiliere= async (req, res) => {
+  const { filliere } = req.params;
 
   try {
-    // Fetch quizzes from the database based on the 'filliere' parameter
-    const quizzes = await Quiz.find({ filiere: filliere });
-
-    res.json(quizzes);
+    const qcms = await Quiz.find({ filiere:filliere });
+    res.json(qcms);
   } catch (error) {
-    console.error('Error fetching quizzes:', error);
+    console.error('Error fetching QCMs:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-};
+}
+////////////////////////////////////////////
+const submitAnswers = async (req, res) => {
+  const { userId, answers } = req.body;
+
+  try {
+    // Fetch the user based on the userId
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Assuming you have a Quiz model with questions and correct answers
+    const quizzes = await Quiz.find({ filliere: user.filliere });
+
+    // Calculate the score
+    let score = 0;
+    quizzes.forEach((quiz) => {
+      const userAnswer = answers[quiz._id];
+      if (userAnswer && userAnswer === quiz.correctAnswer) {
+        score += 1;
+      }
+    });
+
+    res.json({ score });
+  } catch (error) {
+    console.error('Error submitting answers:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+
    module.exports = {
     Add_User, 
     Login_User,
     LogOut,
     AddQuiz,
-    getQuizzesByFilliere,
     Add_Prof,
-    Login_Prof
+    Login_Prof,
+    GetQuizByFiliere,
+    submitAnswers
   }

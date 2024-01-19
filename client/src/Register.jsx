@@ -10,7 +10,23 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
+  const [selectedOption, setSelectedOption] = useState('');
+  const handleSelectChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+  const categories = [
+    { value: 'tm', label: 'TM' },
+    { value: 'mt', label: 'MT' },
+    { value: 'gi', label: 'GI' },
+    { value: 'idsd', label: 'IDSD' },
+    { value: 'ge', label: 'GE' },
+    { value: 'err', label: 'ERR' },
+    { value: 'isil', label: 'ISIL' },
+    { value: 'mge', label: 'MGE' },
+    { value: 'erdd', label: 'ERDD' },
+    { value: 'mbf', label: 'MBF' },
+    { value: 'mt-lp', label: 'MT - LP' },
+  ];
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -22,7 +38,7 @@ const Register = () => {
     setLoading(true);
     setError('');
 
-    const formData = { nom, email, password };
+    const formData = { nom, email, password, filliere: selectedOption };
 
     try {
       const response = await axios.post('http://localhost:3000/register', formData);
@@ -54,6 +70,20 @@ const Register = () => {
           <div className='unit'>
             <label htmlFor='email'>Email</label>
             <input type='email' id='email' name='email' value={email} onChange={(e) => setEmail(e.target.value)} required />
+          </div>
+
+          <div className='unit'>
+          <label>Select a category:</label>
+        <select value={selectedOption} onChange={handleSelectChange}>
+          <option value="" disabled>
+            Choose a category
+          </option>
+          {categories.map((category) => (
+            <option key={category.value} value={category.value}>
+              {category.label}
+            </option>
+          ))}
+        </select>
           </div>
           <div className='unit'>
             <label htmlFor='password'>Password</label>

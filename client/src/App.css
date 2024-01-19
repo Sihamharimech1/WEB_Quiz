@@ -40,7 +40,7 @@ html, body{
   float:left;
   padding-bottom: 5px;
 }
-.unit input{
+.unit input, .unit select{
   margin-top: 5px;
   clear: both;
   float:left;

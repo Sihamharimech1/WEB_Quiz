@@ -18,7 +18,8 @@ const VerifyUser = async (email, password) => {
             id: existingUser._id,
             email: existingUser.email,
             nom: existingUser.nom,
-            role:role,
+            role:existingUser.role,
+            filliere:existingUser.filliere,
           },
         };
       } else {
@@ -46,15 +47,17 @@ const VerifyProf = async (professionalId, password) => {
     if (existingUser) {
       // User found, now check the password
       const passwordMatch = await bcrypt.compare(password, existingUser.password);
-
+        
       if (passwordMatch) {
+       
         return {
           success: true,
           user: {
             id: existingUser._id,
             email: existingUser.email,
             nom: existingUser.nom,
-            role:role,
+            role:existingUser.role,
+         
           },
         };
       } else {

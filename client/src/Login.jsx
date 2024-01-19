@@ -16,48 +16,31 @@ const Login = () => {
     setLoading(true);
     setError('');
 
-    const loginData = { email, password };
-
     try {
-      const response = await axios.post('http://localhost:3000/login', loginData);
-  
-      // Check for a successful response status (e.g., 200 OK)
+      const response = await axios.post('http://localhost:3000/login', { email, password });
+
       if (response.data.success) {
         console.log(response.data);
         setEmail('');
         setPassword('');
-        navigate('/home');
+        navigate('/HomeStudent', { state: { user: response.data.user } });
       } else {
         setError('Invalid email or password. Please try again.');
       }
     } catch (error) {
       console.error('Login failed:', error);
-      setError('Invalid email or password. Please try again.');
+      setError('An error occurred. Please try again later.');
     } finally {
       setLoading(false);
     }
   };
 
-  // Your styling and JSX code remains the same
-  const stl = {
-    backgroundColor: 'rgb(212, 211, 211)',
-    height: '650px',
-    margin: 0,
-    padding: 0,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  };
-const stle ={
-    width: '350px',
-    height: '400px',
-}  
   return (
-    <div className='all' style={stl}>
-      <div className='box' style={stle}>
+    <div className='all' style={{ backgroundColor: 'rgb(212, 211, 211)', height: '650px', margin: 0, padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div className='box' style={{ width: '350px', height: '400px' }}>
         <form onSubmit={handleSubmit}>
           <div className='unit'>
-            <label htmlFor='email'>Email</label>
+            <label htmlFor='email'>Email:</label>
             <input
               type='email'
               id='email'
@@ -65,10 +48,11 @@ const stle ={
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              aria-label="Email"
             />
           </div>
           <div className='unit'>
-            <label htmlFor='password'>Password</label>
+            <label htmlFor='password'>Password:</label>
             <input
               type='password'
               id='password'
@@ -76,6 +60,7 @@ const stle ={
               value={password}
               required
               onChange={(e) => setPassword(e.target.value)}
+              aria-label="Password"
             />
           </div>
           <div className='unit'>
