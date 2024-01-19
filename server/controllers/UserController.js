@@ -143,7 +143,7 @@ const GetQuizByFiliere= async (req, res) => {
   }
 }
 ////////////////////////////////////////////
-const submitAnswers = async (req, res) => {
+/*const submitAnswers = async (req, res) => {
   const { userId, answers } = req.body;
 
   try {
@@ -153,16 +153,23 @@ const submitAnswers = async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // Assuming you have a Quiz model with questions and correct answers
-    const quizzes = await Quiz.find({ filliere: user.filliere });
+    // Fetch quizzes based on user's filiere
+    const quizzes = await Quiz.find({ filiere: user.filiere });
 
-    // Calculate the score
     let score = 0;
     quizzes.forEach((quiz) => {
-      const userAnswer = answers[quiz._id];
-      if (userAnswer && userAnswer === quiz.correctAnswer) {
-        score += 1;
-      }
+      quiz.questions.forEach(question => {
+        // Get the user's answer for this question
+        const userAnswer = answers[question._id];
+        if (userAnswer) {
+          // Find the correct option for this question
+          const correctOption = question.options.find(option => option.isCorrect);
+          // Compare user's answer with the correct answer
+          if (correctOption && userAnswer === correctOption.optionText) {
+            score += 1;
+          }
+        }
+      });
     });
 
     res.json({ score });
@@ -171,6 +178,7 @@ const submitAnswers = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+*/
 
 
    module.exports = {
@@ -181,7 +189,6 @@ const submitAnswers = async (req, res) => {
     Add_Prof,
     Login_Prof,
     GetQuizByFiliere,
-    submitAnswers,
     getQuizzesByFilliere
   }
 

@@ -136,6 +136,10 @@ button{
 .student img:hover {
   transform: scale(1.1);
   transition: transform 0.2s ease;
+}
+.teacher img:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
   
 }
 .teacher img{
@@ -233,3 +237,33 @@ header h1{
   bottom: 0;
   width: 100%;
 }
+.quizContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Adjust the gap as needed */
+  align-items: flex-start; /* Aligns items to the top of the container */
+}
+
+.quizCard {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  width: 300px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-left: 50px;
+}
+
+.quizHeader {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.quizContent {
+  padding: 8px;
+}
+
+/*.lot{
+  display: flex;
+} Additional styling for buttons, questions, etc. */

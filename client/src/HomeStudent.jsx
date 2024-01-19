@@ -4,112 +4,129 @@ import NavBar from './nav';
 import axios from 'axios';
 
 const HomeStudent = () => {
+  const [quizData, setQuizData] = useState([]);
+  const [userAnswers, setUserAnswers] = useState({});
+  const [scores, setScores] = useState({});
+  const [submittedQuizzes, setSubmittedQuizzes] = useState({});
+  const [activeQuizzes, setActiveQuizzes] = useState({});
+
   const location = useLocation();
   const { state } = location;
   const { user } = state || {};
-  const [qcms, setQCMs] = useState([]);
-  const [answers, setAnswers] = useState({});
-  const [score, setScore] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    const fetchQCMs = async () => {
-      try {
-        setIsLoading(true);
-        const response = await axios.get(`http://localhost:3000/quizzes/${user?.filliere}`);
-        setQCMs(response.data || []);
-        const initialAnswers = {};
-        (response.data || []).forEach((qcm) => {
-          initialAnswers[qcm._id] = '';
-        });
-        setAnswers(initialAnswers);
-      } catch (error) {
-        console.error('Error fetching QCMs:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    if (user?.filliere) {
-      fetchQCMs();
-    }
+    axios.get(`http://localhost:3000/quizzes?filliere=${user?.filliere}`)
+      .then(response => {
+        setQuizData(response.data);
+        initializeStates(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching quiz data:', error);
+      });
   }, [user?.filliere]);
 
-  const handleAnswerChange = (qcmId, selectedOption) => {
-    setAnswers((prevAnswers) => ({
-      ...prevAnswers,
-      [qcmId]: selectedOption,
+  const initializeStates = (quizzes) => {
+    const initialAnswers = {};
+    const initialActiveQuizzes = {};
+    quizzes.forEach(quiz => {
+      initialActiveQuizzes[quiz._id] = false;
+      quiz.questions.forEach((_, questionIndex) => {
+        initialAnswers[`${quiz._id}_${questionIndex}`] = null;
+      });
+    });
+    setUserAnswers(initialAnswers);
+    setActiveQuizzes(initialActiveQuizzes);
+  };
+
+  const handleAnswer = (quizId, questionIndex, optionIndex) => {
+    setUserAnswers({
+      ...userAnswers,
+      [`${quizId}_${questionIndex}`]: optionIndex
+    });
+  };
+
+  const handleSubmit = (quizId, quizQuestions) => {
+    let quizScore = 0;
+    quizQuestions.forEach((question, questionIndex) => {
+      if (question.options[userAnswers[`${quizId}_${questionIndex}`]]?.isCorrect) {
+        quizScore += 1;
+      }
+    });
+    setScores({
+      ...scores,
+      [quizId]: quizScore
+    });
+    setSubmittedQuizzes({
+      ...submittedQuizzes,
+      [quizId]: true
+    });
+  };
+  const toggleQuiz = (quizId) => {
+    setActiveQuizzes(prevActiveQuizzes => ({
+      ...prevActiveQuizzes,
+      [quizId]: !prevActiveQuizzes[quizId]
     }));
   };
-
-  const handleSubmit = async () => {
-    try {
-      setSubmitting(true);
-      const response = await axios.post(`http://localhost:3000/submit-answers`, {
-        userId: user?._id,
-        answers,
-      });
-      setScore(response.data.score);
-    } catch (error) {
-      console.error('Error submitting answers:', error);
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
+  
+  
   return (
     <>
       <NavBar />
-      <div>
-        <p>User Filliere: {user?.filliere || 'Not available'}</p>
-        <h2>QCMs:</h2>
-        {isLoading ? (
-          <p>Loading QCMs...</p>
-        ) : qcms.length > 0 ? (
-          <ul>
-            {qcms.map((qcm) => (
-              <li key={qcm._id}>
-                <strong>{qcm.title}</strong>
-                {qcm.options && qcm.options.length > 0 ? (
-                  <ul>
-                    {qcm.options.map((option) => (
-                      <li key={option._id}>
-                        <input
-                          type="radio"
-                          id={option._id}
-                          name={qcm._id}
-                          value={option.text}
-                          checked={answers[qcm._id] === option.text}
-                          onChange={() => handleAnswerChange(qcm._id, option.text)}
-                        />
-                        <label htmlFor={option._id}>{option.text}</label>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p>No options available for this question.</p>
-                )}
-              </li>
-            ))}
-          </ul>
+      <h1>Quizzes for {user?.filliere}</h1>
+      <div  className="quizContainer">
+        {quizData.length === 0 ? (
+          <p className="noQuizzes">No quizzes available for this filliere.</p>
         ) : (
-          <p>No QCMs available.</p>
-        )}
+          quizData.map(quiz => (
+            <div>
+            <div key={quiz._id} className="quizCard">
+              <div className="quizHeader">
+                <h2>{quiz.title}</h2>
+                <button onClick={() => toggleQuiz(quiz._id)}>
+                    {activeQuizzes[quiz._id] ? 'Hide Quiz' : 'Take Quiz'}
+                 </button>
+              </div>
+              {activeQuizzes[quiz._id] && (
+                    <div className="quizContent">
+                  {quiz.questions.map((question, questionIndex) => (
+                    <div key={questionIndex} className="question">
+                      <p>
+                        <strong>Question {questionIndex + 1}:</strong> {question.questionText}
+                      </p>
+                      <ul className="options">
+                        {question.options.map((option, optionIndex) => (
+                          <li key={optionIndex} className="option">
+                            <label>
+                            <input
+                              type="radio"
+                              name={`question_${quiz._id}_${questionIndex}`}
+                              checked={userAnswers[`${quiz._id}_${questionIndex}`] === optionIndex}
+                              onChange={() => handleAnswer(quiz._id, questionIndex, optionIndex)}
+                            />
 
-        <button onClick={handleSubmit} disabled={submitting}>
-          {submitting ? 'Submitting...' : 'Submit Answers'}
-        </button>
-
-        {score !== null && (
-          <div>
-            <h2>Score: {score}</h2>
-            {/* Display other details based on your requirements */}
-          </div>
+                              {option.optionText}
+                            </label>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                  {!submittedQuizzes[quiz._id] && (
+                    <button onClick={() => handleSubmit(quiz._id, quiz.questions)}>Submit Quiz</button>
+                  )}
+                  {submittedQuizzes[quiz._id] && (
+                    <p>Score for this quiz: {scores[quiz._id]}/{quiz.questions.length}</p>
+                  )}
+                </div>
+              )}
+            </div>
+            </div>
+          ))
         )}
       </div>
     </>
   );
+  
 };
 
 export default HomeStudent;

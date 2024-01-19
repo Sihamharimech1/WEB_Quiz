@@ -6,12 +6,22 @@ const Test = () => {
       marginLeft: '710px',
       marginTop: '-600px'
   }
+  const stle={
+    marginLeft: '1100px',
+    marginTop: '-60px',
+    float: 'left',
+    paddingTop: '20px',
+   paddingBottom: '40px',
+   width: '130px'
+}
     return ( 
         <div className="app">
         <header className="header">
             <img src="logo.png"></img>
           <h1>Test your Knowledge</h1>
-         
+          <Link to="/BigLogin">
+          <button className="subscribe-button" style={stle }>Log In now</button>
+          </Link>
         </header>
         <section className="main-content">
           <h2>About Us</h2>
@@ -30,7 +40,7 @@ const Test = () => {
           </p>
         </section>
         <section className="cta">
-          <button className="subscribe-button">Sign Up know</button>
+          <button className="subscribe-button">Sign Up now</button>
         
        
           <div className="student">

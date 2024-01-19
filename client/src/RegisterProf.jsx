@@ -92,7 +92,7 @@ const RegisterProf = () => {
         </form>
         <div className='un'>
           <p>You already have an Account. Log in!</p>
-          <Link to='/login'>
+          <Link to='/loginProf'>
             <Button>Log in</Button>
           </Link>
         </div>
