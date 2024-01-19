@@ -12,6 +12,7 @@ import QuizFil from "./Land";
 import BigLogin from "./BigLogin";
 import LoginProf from "./loginProf";
 import HomeStudent from "./HomeStudent";
+import Results from "./Results";
 function App() {
   return (
     <Router>
@@ -36,6 +37,7 @@ function App() {
           <Route path="mbf"  element={<QuizForm filliere="mbf"/>}/>
           <Route path="mt-lp" filliere="mt-lp" element={<QuizForm filliere="mt-lp"/>} />
           <Route path="Allquiz"  element={<QuizFil />}/>
+          <Route path="/Results"  element={<Results />}/>
         <Route path="/nav" element={<NavBar />} />
       </Routes>
     </Router>  

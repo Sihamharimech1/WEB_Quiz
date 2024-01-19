@@ -74,6 +74,9 @@ const QuizForm = ({ onAddQuiz, filliere }) => {
       <Link to={{ pathname: '/Allquiz', search: `?filliere=${filliere}` }} style={{ textDecoration: 'none' }}>
   <h2 className="allquiz">All Quizzes</h2>
 </Link>
+<Link to={{ pathname: '/Results', search: `?filliere=${filliere}` }} style={{ textDecoration: 'none' }}>
+  <h2 className="allresult">Results</h2>
+</Link>
 
       <form className="form-wrapper" onSubmit={handleSubmit}>
         <label className="form-label">Title:</label>

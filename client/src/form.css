@@ -19,6 +19,17 @@
   font-size: large;
   border-radius: 12px;
 }
+.allresult{
+ 
+  background-color: rgb(18, 110, 190);
+  width: fit-content;
+  padding: 15px;
+  text-decoration: none;
+  color: white;
+
+  font-size: large;
+  border-radius: 12px;
+}
 
 .form-wrapper {
   display: flex;

@@ -182,10 +182,10 @@ const GetQuizByFiliere= async (req, res) => {
 */
 const SubmitQuiz = async (req, res) => {
   try {
-    const { QId, QUser, Qtitle, Qscore } = req.body;
+    const { QId, QUser, Qtitle, Qscore, filliere } = req.body;
 
     // Validate the data
-    if (!QId || !QUser || !Qtitle || Qscore === undefined) {
+    if (!QId || !QUser || !Qtitle || Qscore === undefined || !filliere) {
       return res.status(400).send('Missing required quiz information');
     }
 
@@ -194,7 +194,8 @@ const SubmitQuiz = async (req, res) => {
       quizId: QId,
       userId: QUser,
       title: Qtitle,
-      score: Qscore
+      score: Qscore,
+      filliere: filliere
     });
 
     await submission.save();
@@ -205,6 +206,30 @@ const SubmitQuiz = async (req, res) => {
   }
 };
 
+const getQuizResults = async (req, res) => {
+  try {
+    const { filliere } = req.params;
+
+       // Fetch results filtered by the specified filliere
+       const results = await Result.find({ filliere })
+                                   .populate('quizId', 'title')
+                                   .populate('userId', 'name');
+
+       // Transform the data as needed
+       const transformedResults = results.map(result => ({
+           filliere: result.filliere,
+           quizTitle: result.quizId.title, // Assuming 'title' field in the 'Quiz' model
+           user: result.userId.name, // Assuming 'name' field in the 'User' model
+           score: result.score,
+           submittedAt: result.submittedAt
+       }));
+
+      res.json(transformedResults);
+  } catch (error) {
+      console.error('Error fetching quiz results:', error);
+      res.status(500).json({ message: 'Error fetching quiz results' });
+  }
+};
 
    module.exports = {
     Add_User, 
@@ -215,7 +240,8 @@ const SubmitQuiz = async (req, res) => {
     Login_Prof,
     GetQuizByFiliere,
     getQuizzesByFilliere,
-    SubmitQuiz
+    SubmitQuiz,
+    getQuizResults
   }
 
 

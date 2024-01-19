@@ -6,6 +6,7 @@ const ResultSchema = new Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
     title: { type: String, required: true },
     score: { type: Number, required: true },
+    filliere: { type: String, required: true },
     submittedAt: { type: Date, default: Date.now }
 }, { timestamps: true });
 

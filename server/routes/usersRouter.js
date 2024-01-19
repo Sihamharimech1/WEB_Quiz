@@ -12,4 +12,5 @@ router.get('/quizzes', UserController.getQuizzesByFilliere);
 router.get('/quizzes/:filliere', UserController.GetQuizByFiliere);
 // router.post('/submit-answers', UserController.submitAnswers);
 router.post('/submitQuiz', UserController.SubmitQuiz);
+router.get('/Results', UserController.getQuizResults);
 module.exports = router;
